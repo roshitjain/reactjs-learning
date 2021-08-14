@@ -1,9 +1,3 @@
-// const testData = [
-// 			{name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "@facebook"},
-//       {name: "Sophie Alpert", avatar_url: "https://avatars2.githubusercontent.com/u/6820?v=4", company: "Humu"},
-//   		{name: "Sebastian Markbåge", avatar_url: "https://avatars2.githubusercontent.com/u/63648?v=4", company: "Facebook"},
-// 	];
-
 class Card extends React.Component{
   constructor(props){
     super(props)
@@ -31,10 +25,6 @@ const CardList = (props) => (
 );
   
 class Form extends React.Component{
-  // constructor(props){
-  //   super(props)
-  // }
-  // userNameInput = React.createRef()
   state = {
     userName:''
   }
@@ -42,6 +32,7 @@ class Form extends React.Component{
     event.preventDefault();
     const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);
     this.props.onNewProfile(resp.data);
+    this.setState({ userName:'' });
   }
   render(){
     return(
@@ -51,7 +42,7 @@ class Form extends React.Component{
           placeholder="Search User"
           value = {this.state.userName}
           onChange={event =>{
-            // console.log(event.target.value)
+            console.log(event.target.value);
             this.setState({userName:event.target.value})
           }}
           required/>
@@ -62,14 +53,6 @@ class Form extends React.Component{
 }
 
 class App extends React.Component{
-  // constructor(props){
-  //   super(props);
-  //   this.state = {
-  //     title:props.title,
-  //     profiles:testData,
-  //   }
-  // }
-  
   state = {
     profiles:[],
   };
