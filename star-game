@@ -31,14 +31,14 @@ const PlayAgain = (props) => (
     </button>
     </div>
 );
-const StarMatch = () => {
+const Game = () => {
     const [stars, setStars] = useState(utils.random(1, 9));
     const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
     const [candidateNums, setCandidateNums] = useState([]);
     const [secondsLeft, setSecondsLeft] = useState(10);
 
     useEffect(() => {
-        if (secondsLeft > 0 ) {
+        if (secondsLeft > 0 && gameStatus === 'active') {
             const timerId = setTimeout(() => {
                 setSecondsLeft(secondsLeft - 1)
             }, 1000);
@@ -69,7 +69,7 @@ const StarMatch = () => {
     }
 
     const onNumberClick = (number, currentStatus) => {
-        if (currentStatus == 'used') {
+        if (currentStatus == 'used' || gameStatus !=='active') {
             return;
         }
         const newCandidateNums = !candidateNums.includes(number) ?
@@ -118,6 +118,10 @@ const StarMatch = () => {
             <div className="timer">Time Remaining: {secondsLeft}</div>
         </div>
     );
+};
+
+const StarMatch = () => {
+  return <Game/>;
 };
 
 // Color Theme
